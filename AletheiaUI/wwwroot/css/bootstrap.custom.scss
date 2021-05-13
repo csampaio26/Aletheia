@@ -1,0 +1,18 @@
+﻿@import "../lib/bootstrap/scss/_functions.scss";
+
+@import "../lib/bootstrap/scss/_variables.scss";
+@import "../lib/bootstrap/scss/_mixins.scss";
+
+
+$primary: #7952b3;
+$input-focus-color: #7952b3;
+$input-btn-focus-color: #7952b3 ;
+$input-focus-box-shadow: #7952b3;
+
+$theme-colors: ( "primary": $primary, 
+    "input-focus-color": $input-focus-color, 
+    "input-btn-focus-color" : $input-btn-focus-color,
+    "input-focus-box-shadow" : $input-focus-box-shadow
+);
+
+@import "../lib/bootstrap/scss/bootstrap.scss";

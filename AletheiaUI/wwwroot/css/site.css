@@ -1,0 +1,51 @@
+﻿/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  white-space: nowrap;
+  line-height: 60px; /* Vertically center the text there */
+}
+
+textarea:focus,
+input[type="text"]:focus,
+input[type="file"]:focus,
+input[type="password"]:focus,
+input[type="datetime"]:focus,
+input[type="datetime-local"]:focus,
+input[type="date"]:focus,
+input[type="month"]:focus,
+input[type="time"]:focus,
+input[type="week"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="color"]:focus,
+select:focus,
+.uneditable-input:focus {
+    border-color: #7952b3 !important;
+    box-shadow: 0 0 0 0.25rem rgba(121, 82, 179,0.25) !important;
+    outline: 0 none;
+}
+
+.bd-navbar {
+    padding: .75rem 0;
+    background-color: #7952b3;
+}
+
+.bd-masthead {
+    padding: 3rem 0;
+    background: linear-gradient( 165deg, #f7f5fb 50%, #fff 50%);
+}

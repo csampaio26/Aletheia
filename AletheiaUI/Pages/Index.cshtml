@@ -1,0 +1,46 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+
+<form>
+    <div class="mb-3">
+        <label for="Operation" class="form-label">Operation</label>
+        <select itemid="operation" onchange="Operation_data_changed()" asp-for="@Model.Argument.Operation" asp-items="Html.GetEnumSelectList<Models.Operation>()"
+                class="form-select" id="txtOperation">
+            <option selected="selected" value="">Please select</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="project_path" class="form-label">Project Path</label>
+        <input type="file"
+               accept=".vcxproj"
+               asp-for="@Model.Argument.ProjectPath" class="form-control" id="txtproject_path" aria-describedby="project_path" aria-label="project_path">
+        <div id="emailHelp" class="form-text">It is a mandatory argument for HitSpectra Generation part.</div>
+    </div>
+
+    <div class="mb-3">
+        <label for="output_directory" class="form-label">Output Directory</label>
+        <input asp-for="@Model.Argument.OutputDirectory" type="text" class="form-control" value="C:\HitSpectras"
+               id="output_directory" aria-describedby="output_directory" aria-label="output_directory">
+        <div id="emailHelp" class="form-text">Where the output will be generated.</div>
+    </div>
+
+    <div class="mb-3">
+        <label for="separator" class="form-label">Separator</label>
+        <input type="text" class="form-control" id="project_path" aria-describedby="separator" aria-label="separator">
+        <div id="emailHelp" class="form-text">Specifies the separator character for csv file. By default white space is the separator.</div>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+@section Scripts{
+    <script>
+        function Operation_data_changed() {
+            var operation = document.getElementById("txtOperation");
+            document.getElementById("txtproject_path").required = operation.value != 1;
+        }
+    </script>
+}
