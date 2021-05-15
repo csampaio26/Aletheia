@@ -13,19 +13,20 @@ namespace AletheiaUI.Pages
     {
         private readonly ILogger<IndexModel> _logger;
 
+        [BindProperty]
         public Argument Argument { get; set; }
 
 
         public IndexModel(ILogger<IndexModel> logger)
         {
             _logger = logger;
-        }
-
-        public void OnGet()
-        {
             Argument = new Argument();
         }
 
+        public void OnPost()
+        {
+            Console.WriteLine("estou aqui");
+        }
 
     }
 }
