@@ -106,6 +106,7 @@ namespace Aletheia
                  InvokedFunctionsWithParametersHitSpectraMatrix = spectralizer.InvokedFunctionsWithParametersHitSpectraMatrix;
                  LineCoverageHitSpectraMatrix = spectralizer.LineCoverageHitSpectraMatrix;
                 Console.WriteLine("Spectra Matrix generated\n");
+
             }
             else if (operation.Equals("Cluster", StringComparison.OrdinalIgnoreCase))
             {
@@ -242,6 +243,7 @@ namespace Aletheia
 
             }
 
+            Console.ReadKey();
         }
         /// <summary>
         /// doClustering is a static method in the Program class. It is invoked when clustering is required by command line parameter.

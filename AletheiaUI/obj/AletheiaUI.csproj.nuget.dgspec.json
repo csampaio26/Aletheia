@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\CarlaSampaio\\Desktop\\Aletheia\\AletheiaUI\\AletheiaUI.csproj": {}
+    "C:\\Users\\carla\\Desktop\\Aletheia\\AletheiaUI\\AletheiaUI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\CarlaSampaio\\Desktop\\Aletheia\\AletheiaUI\\AletheiaUI.csproj": {
+    "C:\\Users\\carla\\Desktop\\Aletheia\\AletheiaUI\\AletheiaUI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\CarlaSampaio\\Desktop\\Aletheia\\AletheiaUI\\AletheiaUI.csproj",
+        "projectUniqueName": "C:\\Users\\carla\\Desktop\\Aletheia\\AletheiaUI\\AletheiaUI.csproj",
         "projectName": "AletheiaUI",
-        "projectPath": "C:\\Users\\CarlaSampaio\\Desktop\\Aletheia\\AletheiaUI\\AletheiaUI.csproj",
-        "packagesPath": "C:\\Users\\CarlaSampaio\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\CarlaSampaio\\Desktop\\Aletheia\\AletheiaUI\\obj\\",
+        "projectPath": "C:\\Users\\carla\\Desktop\\Aletheia\\AletheiaUI\\AletheiaUI.csproj",
+        "packagesPath": "C:\\Users\\carla\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\carla\\Desktop\\Aletheia\\AletheiaUI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\CarlaSampaio\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\carla\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -63,7 +63,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
         }
       }
     }

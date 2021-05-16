@@ -24,7 +24,7 @@ namespace Aletheia.HitSpectra.persistence
             this._TestSetSemaphore = new SemaphoreSlim(1);
             this._TestSetSimplified = new HashSet<string>();
         }
-        public Project(string configFile)
+        public Project(string configFile, string srcDir)
         {
             //Extract Projects-Name
             this._Name = new DirectoryInfo(configFile).Name;
@@ -34,7 +34,7 @@ namespace Aletheia.HitSpectra.persistence
             this._Directory = Path.GetDirectoryName(configFile);
 
             //Gather test-cases/unit-tests from project-file (*.vcxproj)
-            this._TestSet = Project.GetTestSetFromProject(configFile);
+            this._TestSet = Project.GetTestSetFromProject(configFile, srcDir);
 
             this.Executable=this._Directory + "\\debug\\" + this._Name + ".exe";
             //Create a semaphore for parallel test-execution
@@ -195,7 +195,7 @@ namespace Aletheia.HitSpectra.persistence
         /// </summary>
         /// <param name="projectPath">Path to the project-file (*.vcxproj) of the desired test-set</param>
         /// <returns>Dictionary containing the TestCases(Key) and its set of UnitTests(Value)</returns>
-        private static Dictionary<string, List<string>> GetTestSetFromProject(string projectPath)
+        private static Dictionary<string, List<string>> GetTestSetFromProject(string projectPath, string sourceDirectory)
         {
             Dictionary<string, List<string>> tests = new Dictionary<string, List<string>>();
 
@@ -214,7 +214,7 @@ namespace Aletheia.HitSpectra.persistence
                             testCasePath = projectLine.Split('"')[1];
 
                             currentTests = new Dictionary<string, List<string>>();
-                            currentTests = Project.GetUnitTestsFromTestCase(testCasePath);
+                            currentTests = Project.GetUnitTestsFromTestCase(Path.Combine(sourceDirectory, testCasePath));
                             string t = "";
                             foreach (string unitTestName in currentTests.Keys)
                             {

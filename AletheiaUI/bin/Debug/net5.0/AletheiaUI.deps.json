@@ -9,15 +9,7 @@
       "DEBUG",
       "NET",
       "NET5_0",
-      "NETCOREAPP",
-      "NET5_0_OR_GREATER",
-      "NETCOREAPP1_0_OR_GREATER",
-      "NETCOREAPP1_1_OR_GREATER",
-      "NETCOREAPP2_0_OR_GREATER",
-      "NETCOREAPP2_1_OR_GREATER",
-      "NETCOREAPP2_2_OR_GREATER",
-      "NETCOREAPP3_0_OR_GREATER",
-      "NETCOREAPP3_1_OR_GREATER"
+      "NETCOREAPP"
     ],
     "languageVersion": "9.0",
     "platform": "",
@@ -512,9 +504,17 @@
         }
       },
       "Microsoft.NETCore.Platforms/2.1.2": {},
-      "System.Collections.Immutable/5.0.0": {},
+      "System.Collections.Immutable/5.0.0": {
+        "compile": {
+          "lib/netstandard2.0/System.Collections.Immutable.dll": {}
+        }
+      },
       "System.Memory/4.5.4": {},
-      "System.Reflection.Metadata/5.0.0": {},
+      "System.Reflection.Metadata/5.0.0": {
+        "compile": {
+          "lib/netstandard2.0/System.Reflection.Metadata.dll": {}
+        }
+      },
       "System.Runtime.CompilerServices.Unsafe/4.7.1": {},
       "System.Text.Encoding.CodePages/4.5.1": {
         "dependencies": {

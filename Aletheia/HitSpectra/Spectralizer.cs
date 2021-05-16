@@ -1613,7 +1613,7 @@ namespace Aletheia.HitSpectra
 
             }
             if (projectPath != null && projectMode != null && projectMode.ToLower().Equals("default"))
-                baseProject = new Project(projectPath);
+                baseProject = new Project(projectPath, srcDir);
             else if (gtestPath != null && projectMode != null && projectMode.ToLower().Equals("chromium"))
             {
                 if (testType.Equals("integration"))

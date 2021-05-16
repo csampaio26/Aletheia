@@ -22,6 +22,14 @@
     </div>
 
     <div class="mb-3">
+        <label for="output_directory" class="form-label">Source Directory</label>
+        <input asp-for="@Model.Argument.SourceDirectory" type="text" class="form-control" 
+               id="output_directory" aria-describedby="source_directory" aria-label="source_directory">
+        <div id="emailHelp" class="form-text">Directory where the source files are located</div>
+    </div>
+
+
+    <div class="mb-3">
         <label for="output_directory" class="form-label">Output Directory</label>
         <input asp-for="@Model.Argument.OutputDirectory" type="text" class="form-control" value="C:\HitSpectras"
                id="output_directory" aria-describedby="output_directory" aria-label="output_directory">
@@ -30,7 +38,7 @@
 
     <div class="mb-3">
         <label for="separator" class="form-label">Separator</label>
-        <input type="text" class="form-control" id="project_path" aria-describedby="separator" aria-label="separator">
+        <input type="text" asp-for="@Model.Argument.Separator" class="form-control" id="project_path" aria-describedby="separator" aria-label="separator">
         <div id="emailHelp" class="form-text">Specifies the separator character for csv file. By default white space is the separator.</div>
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
