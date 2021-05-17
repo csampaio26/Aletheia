@@ -36,7 +36,7 @@ namespace Aletheia
         private static DataTable  LineCoverageHitSpectraMatrix = null;
 
         private static DataTable hilHitSpectraMatrix = null;
-        private static string rankingMetric="Jaccard";
+        private static string rankingMetric="all";
         /// <summary>
         /// the main function.
         /// Aletheia starts here. It directs the program what to do based on command line input
@@ -161,13 +161,26 @@ namespace Aletheia
                 string path = workingDirectory + "\\" + pathAdditional;
                 if (commandLineArguments.ContainsKey(PossibleCommandLineArguments.FAULT_RANKING_METRIC))
                     rankingMetric = commandLineArguments[PossibleCommandLineArguments.FAULT_RANKING_METRIC].Value;
-                EStrategy rankingStrategy = getFaultLocalizationStrategy(rankingMetric);
-                Detective detective = new Clustering.FaultLocalization.Detective(dataTable, rankingStrategy, commandLineArguments, path);
-                detective.DetectFault();
-                CommandLinePrinter.printToCommandLine("Fault Localization complete\n");
 
+                if (rankingMetric == "all" || string.IsNullOrEmpty(rankingMetric))
+                {
+                    List<EStrategy> strategies = Enum.GetValues(typeof(EStrategy)).Cast<EStrategy>().ToList();
 
+                    foreach (var strategy in strategies)
+                    {
+                        Detective detective = new Clustering.FaultLocalization.Detective(dataTable, strategy, commandLineArguments, path);
+                        detective.DetectFault();
+                        CommandLinePrinter.printToCommandLine($"Fault Localization for ranking metric {strategy} complete\n");
+                    }
 
+                } else
+                {
+                    EStrategy rankingStrategy = getFaultLocalizationStrategy(rankingMetric);
+                    Detective detective = new Clustering.FaultLocalization.Detective(dataTable, rankingStrategy, commandLineArguments, path);
+                    detective.DetectFault();
+                    CommandLinePrinter.printToCommandLine($"Fault Localization for ranking metric {rankingMetric} complete\n");
+                }
+                
             }
             else if (operation.Equals("getHelp", StringComparison.OrdinalIgnoreCase))
             {

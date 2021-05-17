@@ -14,7 +14,6 @@ namespace Aletheia.Clustering.FaultLocalization.SimilarityMetrics
         Dstar4,
         Dstar5, 
         Jaccard,
-        Hamming, 
         Ochiai,
         Tarantula
     }

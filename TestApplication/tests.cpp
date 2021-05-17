@@ -2,30 +2,7 @@
 
 #include <iostream>
 #include <gtest/gtest.h>
-
-int GreatestNumber(int num1, int num2, int num3)
-{
-    int  greatest;
-
-    if (num1 > num2)
-    {
-        if (num1 > num3)
-        {
-            greatest = num1;
-        }
-        else
-        {
-            greatest = num1;
-        }
-    }
-    else if (num2 > num3)
-        greatest = num2;
-    else
-        greatest = num3;
-
-    return greatest;
-}
-
+#include "main.cpp"
 
 int main(int argc, char* argv[])
 {

@@ -91,7 +91,6 @@
     <Compile Include="Clustering\FaultLocalization\Detective.cs" />
     <Compile Include="Clustering\FaultLocalization\FaultLocalizer.cs" />
     <Compile Include="Clustering\FaultLocalization\Item.cs" />
-    <Compile Include="Clustering\FaultLocalization\SimilarityMetrics\CS.cs" />
     <Compile Include="Clustering\FaultLocalization\SimilarityMetrics\Dstar.cs" />
     <Compile Include="Clustering\FaultLocalization\SimilarityMetrics\EStratety.cs" />
     <Compile Include="Clustering\FaultLocalization\SimilarityMetrics\IRankingStrategy.cs" />

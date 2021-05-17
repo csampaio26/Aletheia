@@ -37,7 +37,7 @@ namespace Aletheia.Clustering.FaultLocalization
         }
         private void exportSuspiciousnessRanking()
         {
-            string filenameTemplate = "fault";
+            string filenameTemplate = strategy.ToString();
 
             if (!commandLineArguments.ContainsKey(PossibleCommandLineArguments.SEPARATOR))
                 separator = ' ';
