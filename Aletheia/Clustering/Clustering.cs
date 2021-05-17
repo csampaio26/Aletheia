@@ -88,7 +88,6 @@ namespace Aletheia.Clustering
             buildPassedTestcasesInHitSpectraMatrixArray();
             try
             {
-
                 matlabClustering = new MatlabClustering();
             }
             catch (Exception e)
@@ -118,6 +117,7 @@ namespace Aletheia.Clustering
             CommandLinePrinter.printToCommandLine(output);
             int numFailedTest = failedTestcasesInHitSpectraMatrix.GetLength(0);
             MWArray tmpSolution;
+
             if (numFailedTest == 1)
                 tmpSolution = new MWNumericArray(failedTestcasesInHitSpectraMatrix);
             else
