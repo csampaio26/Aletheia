@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Aletheia.Clustering.FaultLocalization.SimilarityMetrics
+﻿namespace Aletheia.Clustering.FaultLocalization.SimilarityMetrics
 {
     public enum EStrategy
     {
@@ -15,6 +9,8 @@ namespace Aletheia.Clustering.FaultLocalization.SimilarityMetrics
         Dstar5, 
         Jaccard,
         Ochiai,
-        Tarantula
+        Tarantula,
+        RojersTanimoto,
+        SokalSneath
     }
 }

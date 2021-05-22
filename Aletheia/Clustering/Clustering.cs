@@ -421,8 +421,8 @@ namespace Aletheia.Clustering
                 int[,] secondCluster = Tools.transformJaggedArrayToTwoDimensionalArray(tmpListOfClusters[2].ToArray());
                 secondCluster = Tools.mergeTwoTwoDimensionalIntArrays(secondCluster, passedTestcasesInHitSpectraMatrix);
 
-                List<Item> suspiciousnessList1 = new FaultLocalizer(firstCluster, Tools.generateFunctionNamesArray(hitSpectraMatrix), faultLocalizationStrategy).calculateSuspiciousnessRanking();
-                List<Item> suspiciousnessList2 = new FaultLocalizer(secondCluster, Tools.generateFunctionNamesArray(hitSpectraMatrix), faultLocalizationStrategy).calculateSuspiciousnessRanking();
+                List<Item> suspiciousnessList1 = new FaultLocalizer(firstCluster, Tools.generateFunctionNamesArray(hitSpectraMatrix), faultLocalizationStrategy).CalculateSuspiciousnessRanking();
+                List<Item> suspiciousnessList2 = new FaultLocalizer(secondCluster, Tools.generateFunctionNamesArray(hitSpectraMatrix), faultLocalizationStrategy).CalculateSuspiciousnessRanking();
 
                 Comparator comparator = new Comparator(ComparingStrategy.JaccardTwoSets, comparisonRange);
                 double similarity = comparator.compare(suspiciousnessList1, suspiciousnessList2);
@@ -510,7 +510,7 @@ namespace Aletheia.Clustering
                 int[,] tr = Tools.transformJaggedArrayToTwoDimensionalArray(ar);
                 int[,] mergedList = Tools.mergeTwoTwoDimensionalIntArrays(tr, passedTestcasesInHitSpectraMatrix);
 
-                List<Item> suspiciousnessList = new FaultLocalizer(mergedList, Tools.generateFunctionNamesArray(hitSpectraMatrix), faultLocalizationStrategy).calculateSuspiciousnessRanking();
+                List<Item> suspiciousnessList = new FaultLocalizer(mergedList, Tools.generateFunctionNamesArray(hitSpectraMatrix), faultLocalizationStrategy).CalculateSuspiciousnessRanking();
                 suspiciousnessListForEveryCluster.Add(key, suspiciousnessList);
             }
         }

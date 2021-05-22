@@ -8,8 +8,8 @@ namespace Aletheia.Clustering.FaultLocalization
 {
     public class Item : IComparable<Item>
     {
-        private string itemName;
-        private double suspiciousness;
+        private readonly string itemName;
+        private readonly double suspiciousness;
 
         public Item(string functionName, double suspiciousness)
         {
@@ -67,7 +67,7 @@ namespace Aletheia.Clustering.FaultLocalization
         public bool Equals(Item otherItem)
         {
             // If parameter is null return false:
-            if ((object)otherItem == null)
+            if (otherItem == null)
             {
                 return false;
             }

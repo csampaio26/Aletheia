@@ -96,6 +96,8 @@
     <Compile Include="Clustering\FaultLocalization\SimilarityMetrics\IRankingStrategy.cs" />
     <Compile Include="Clustering\FaultLocalization\SimilarityMetrics\Jaccard.cs" />
     <Compile Include="Clustering\FaultLocalization\SimilarityMetrics\Ochiai.cs" />
+    <Compile Include="Clustering\FaultLocalization\SimilarityMetrics\SokalSneath.cs" />
+    <Compile Include="Clustering\FaultLocalization\SimilarityMetrics\RojersTanimoto.cs" />
     <Compile Include="Clustering\FaultLocalization\SimilarityMetrics\Tarantula.cs" />
     <Compile Include="CommandLine\IConverter.cs" />
     <Compile Include="CommandLine\input\CommandLineArgument.cs" />

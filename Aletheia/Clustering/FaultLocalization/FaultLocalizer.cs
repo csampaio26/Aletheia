@@ -1,20 +1,15 @@
 ﻿using Aletheia.Clustering.FaultLocalization.SimilarityMetrics;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Aletheia.Clustering.FaultLocalization
 {
     public class FaultLocalizer
     {
-        private EStrategy strategy;
+        private readonly EStrategy strategy;
         private IRankingStrategy rankingStrategy;
-        private List<Item> suspiciousnessRanking;
 
-        private int[,] testcaseMatrix;
-        private string[] functionNames;
+        private readonly int[,] testcaseMatrix;
+        private readonly string[] functionNames;
 
 
         public FaultLocalizer(int[,] testcaseMatrix, string[] fctNames, EStrategy strategy)
@@ -23,11 +18,9 @@ namespace Aletheia.Clustering.FaultLocalization
             this.functionNames = fctNames;
             this.strategy = strategy;
             createRankingStrategyInstance();
-
-            suspiciousnessRanking = new List<Item>();
         }
 
-        public List<Item> calculateSuspiciousnessRanking()
+        public List<Item> CalculateSuspiciousnessRanking()
         {
             List<Item> suspiciousnessList = new List<Item>();
 
@@ -93,14 +86,17 @@ namespace Aletheia.Clustering.FaultLocalization
                 case EStrategy.Jaccard:
                     rankingStrategy = new Jaccard();
                     break;
-                //case EStrategy.Hamming:
-                //    rankingStrategy = new Hamming();
-                //    break;
                 case EStrategy.Ochiai:
                     rankingStrategy = new Ochiai();
                     break;
                 case EStrategy.Tarantula:
                     rankingStrategy = new Tarantula();
+                    break;
+                case EStrategy.RojersTanimoto:
+                    rankingStrategy = new RojersTanimoto();
+                    break;
+                case EStrategy.SokalSneath:
+                    rankingStrategy = new SokalSneath();
                     break;
             }
         }
