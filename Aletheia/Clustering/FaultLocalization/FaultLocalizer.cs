@@ -98,6 +98,37 @@ namespace Aletheia.Clustering.FaultLocalization
                 case EStrategy.SokalSneath:
                     rankingStrategy = new SokalSneath();
                     break;
+
+                case EStrategy.DstarCS:
+                    rankingStrategy = new DstarCS();
+                    break;
+                case EStrategy.DstarCS2:
+                    rankingStrategy = new DstarCS(2);
+                    break;
+                case EStrategy.DstarCS3:
+                    rankingStrategy = new DstarCS(3);
+                    break;
+                case EStrategy.DstarCS4:
+                    rankingStrategy = new DstarCS(4);
+                    break;
+                case EStrategy.DstarCS5:
+                    rankingStrategy = new DstarCS(5);
+                    break;
+                case EStrategy.JaccardCS:
+                    rankingStrategy = new JaccardCS();
+                    break;
+                case EStrategy.OchiaiCS:
+                    rankingStrategy = new OchiaiCS();
+                    break;
+                case EStrategy.TarantulaCS:
+                    rankingStrategy = new TarantulaCS();
+                    break;
+                case EStrategy.RojersTanimotoCS:
+                    rankingStrategy = new RojersTanimotoCS();
+                    break;
+                case EStrategy.SokalSneathCS:
+                    rankingStrategy = new SokalSneathCS();
+                    break;
             }
         }
     }

@@ -11,6 +11,16 @@
         Ochiai,
         Tarantula,
         RojersTanimoto,
-        SokalSneath
+        SokalSneath,
+        DstarCS,
+        DstarCS2,
+        DstarCS3,
+        DstarCS4,
+        DstarCS5,
+        JaccardCS,
+        OchiaiCS,
+        TarantulaCS,
+        RojersTanimotoCS,
+        SokalSneathCS,
     }
 }

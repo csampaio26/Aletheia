@@ -2,21 +2,21 @@
 
 namespace Aletheia.Clustering.FaultLocalization.SimilarityMetrics
 {
-    public class Dstar : IRankingStrategy
+    public class DstarCS : IRankingStrategy
     {
         private int star = 1;
-        public Dstar()
+        public DstarCS()
         {
 
         }
-        public Dstar(int s)
+        public DstarCS(int s)
         {
             star = s;
         }
         public double calculateSuspiciousness(int coveredFailed, int uncoveredFailed, int coveredPassed, int uncoveredPassed)
         {
             if (coveredPassed + uncoveredFailed <= 0) return Int32.MaxValue;
-            double result = (Math.Pow((double)coveredFailed, star) / ((double)uncoveredFailed + (double)coveredPassed));
+            double result = (Math.Pow((double)coveredFailed, star) / ((double)uncoveredFailed * 1.5 + (double)coveredPassed));
 
             return result;
         }
