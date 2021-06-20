@@ -16,7 +16,7 @@ namespace Aletheia.Clustering.FaultLocalization.SimilarityMetrics
         public double calculateSuspiciousness(int coveredFailed, int uncoveredFailed, int coveredPassed, int uncoveredPassed)
         {
             if (coveredPassed + uncoveredFailed <= 0) return Int32.MaxValue;
-            double result = (Math.Pow((double)coveredFailed, star) / ((double)uncoveredFailed * 1.5 + (double)coveredPassed));
+            double result = (Math.Pow((double)coveredFailed, star) / ((double)uncoveredFailed * 0.5 + (double)coveredPassed));
 
             return result;
         }

@@ -91,6 +91,12 @@
     <Compile Include="Clustering\FaultLocalization\Detective.cs" />
     <Compile Include="Clustering\FaultLocalization\FaultLocalizer.cs" />
     <Compile Include="Clustering\FaultLocalization\Item.cs" />
+    <Compile Include="Clustering\FaultLocalization\SimilarityMetricsCSs\DstarCS.cs" />
+    <Compile Include="Clustering\FaultLocalization\SimilarityMetricsCSs\JaccardCS.cs" />
+    <Compile Include="Clustering\FaultLocalization\SimilarityMetricsCSs\OchiaiCS.cs" />
+    <Compile Include="Clustering\FaultLocalization\SimilarityMetricsCSs\RojersTanimotoCS.cs" />
+    <Compile Include="Clustering\FaultLocalization\SimilarityMetricsCSs\SokalSneathCS.cs" />
+    <Compile Include="Clustering\FaultLocalization\SimilarityMetricsCSs\TarantulaCS.cs" />
     <Compile Include="Clustering\FaultLocalization\SimilarityMetrics\Dstar.cs" />
     <Compile Include="Clustering\FaultLocalization\SimilarityMetrics\EStratety.cs" />
     <Compile Include="Clustering\FaultLocalization\SimilarityMetrics\IRankingStrategy.cs" />

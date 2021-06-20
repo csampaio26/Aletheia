@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
-    <StartArguments>Aletheia.exe do=faultLocalization separator=%3b input_path=C:\HitSpectras\GENERATEHITSPECTRA_2021-05-17_19-33-45\TestCoverage_2021-05-17_19-33-45\statement_hit_spectra.csv</StartArguments>
+    <StartArguments>Aletheia.exe do=faultLocalization separator=%3b input_path=C:\HitSpectras\GENERATEHITSPECTRA_2021-06-13_14-13-41\TestCoverage_2021-06-13_14-13-41\statement_hit_spectra.csv 
+</StartArguments>
     <EnableUnmanagedDebugging>true</EnableUnmanagedDebugging>
   </PropertyGroup>
   <PropertyGroup>
@@ -13,6 +14,7 @@
     <ErrorReportUrlHistory />
     <FallbackCulture>en-US</FallbackCulture>
     <VerifyUploadedFiles>false</VerifyUploadedFiles>
+    <ProjectView>ShowAllFiles</ProjectView>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <StartArguments>do=GenerateHitSpectra project_path=C:\Users\raisu\Desktop\opencv-3.4.0\build\modules\dnn\opencv_test_dnn.vcxproj source_directory=C:\Users\raisu\Desktop\opencv-3.4.0\opencv-3.4.0\modules\dnn degreeofparallelism=12 gtest_path=C:\Users\raisu\Desktop\opencv-3.4.0\build\bin\Release\opencv_test_dnn.exe</StartArguments>

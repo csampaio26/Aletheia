@@ -4,7 +4,7 @@
     {
         public double calculateSuspiciousness(int coveredFailed, int uncoveredFailed, int coveredPassed, int uncoveredPassed)
         {
-            double result = ((double)coveredFailed / ((double)coveredFailed + (double)uncoveredFailed* 1.5 + (double)coveredPassed));
+            double result = ((double)coveredFailed / ((double)coveredFailed + (double)uncoveredFailed* 0.5 + (double)coveredPassed));
 
             return result;
         }
