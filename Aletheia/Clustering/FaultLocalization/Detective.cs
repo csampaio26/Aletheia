@@ -46,7 +46,7 @@ namespace Aletheia.Clustering.FaultLocalization
 
             if (suspiciousnessList.Count > 0)
                 {
-                    string output = "Rank" + separator + "Block_name" + separator + "Suspiciousness Value(" + strategy.ToString() + ")\n";
+                    string output = "Rank" + separator + "Block_name" + separator + "Suspiciousness Value\n";
                     if (!System.IO.Directory.Exists(parentPath))
                         System.IO.Directory.CreateDirectory(parentPath);
                     string path = parentPath + "\\" + filenameTemplate  + ".csv";

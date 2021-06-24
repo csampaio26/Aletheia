@@ -11,9 +11,11 @@ using Aletheia.WorksheetParser.import;
 using Aletheia.CommandLine.output;
 using MwMatlabClustering;
 using Aletheia.Clustering.FaultLocalization;
+using System.IO;
+using Aletheia.WorksheetParser.export;
 
 namespace Aletheia
-{   
+{
 
 
     /// <summary>
@@ -22,21 +24,19 @@ namespace Aletheia
     public class Program
     {
         private static string workingDirectory;
-        private static bool clustering = false;
         private static string operation;
         private static bool DEBUG = false;
 
         private static Dictionary<string, CommandLineArgument> commandLineArguments;
 
         // Datatables with HitSpectraMatrices
-        private static DataTable  FunctionHitSpectraMatrix = null;
-        private static DataTable  CountingFunctionInvokationsHitSpectraMatrix = null;
-        private static DataTable  InvokedFunctionsHitSpectraMatrix = null;
-        private static DataTable  InvokedFunctionsWithParametersHitSpectraMatrix = null;
-        private static DataTable  LineCoverageHitSpectraMatrix = null;
+        private static DataTable FunctionHitSpectraMatrix = null;
+        private static DataTable CountingFunctionInvokationsHitSpectraMatrix = null;
+        private static DataTable InvokedFunctionsHitSpectraMatrix = null;
+        private static DataTable InvokedFunctionsWithParametersHitSpectraMatrix = null;
+        private static DataTable LineCoverageHitSpectraMatrix = null;
 
-        private static DataTable hilHitSpectraMatrix = null;
-        private static string rankingMetric="all";
+        private static string rankingMetric = "all";
         /// <summary>
         /// the main function.
         /// Aletheia starts here. It directs the program what to do based on command line input
@@ -60,7 +60,7 @@ namespace Aletheia
             //check which operation is seleced
 
             if (!commandLineArguments.Keys.Contains(PossibleCommandLineArguments.OPERATION)) throw new Exception("Please select a operation: GenerateHitSpectra/Cluster/FaultLocalization!");
-                operation = commandLineArguments[PossibleCommandLineArguments.OPERATION].Value;
+            operation = commandLineArguments[PossibleCommandLineArguments.OPERATION].Value;
             // Check, which mode is selected
             //if (!commandLineArguments.Keys.Contains(PossibleCommandLineArguments.MODE)) throw new Exception("Please select a operation mode!");
             //mode = commandLineArguments[PossibleCommandLineArguments.MODE].Value;
@@ -91,7 +91,7 @@ namespace Aletheia
 
                 }
                 HitSpectra.Spectralizer spectralizer = new HitSpectra.Spectralizer(commandLineArguments, workingDirectory);
-                if(DEBUG)
+                if (DEBUG)
                     Console.WriteLine("Generation of Spectralizer object is complete\n");
                 spectralizer.executeTestSuite();
                 if (DEBUG)
@@ -100,11 +100,11 @@ namespace Aletheia
                 if (DEBUG)
                     Console.WriteLine("Exporting of HitSpectra matrix is complete\n");
 
-                 FunctionHitSpectraMatrix = spectralizer.FunctionHitSpectraMatrix;
-                 CountingFunctionInvokationsHitSpectraMatrix = spectralizer.CountingFunctionInvokationsHitSpectraMatrix;
-                 InvokedFunctionsHitSpectraMatrix = spectralizer.InvokedFunctionsHitSpectraMatrix;
-                 InvokedFunctionsWithParametersHitSpectraMatrix = spectralizer.InvokedFunctionsWithParametersHitSpectraMatrix;
-                 LineCoverageHitSpectraMatrix = spectralizer.LineCoverageHitSpectraMatrix;
+                FunctionHitSpectraMatrix = spectralizer.FunctionHitSpectraMatrix;
+                CountingFunctionInvokationsHitSpectraMatrix = spectralizer.CountingFunctionInvokationsHitSpectraMatrix;
+                InvokedFunctionsHitSpectraMatrix = spectralizer.InvokedFunctionsHitSpectraMatrix;
+                InvokedFunctionsWithParametersHitSpectraMatrix = spectralizer.InvokedFunctionsWithParametersHitSpectraMatrix;
+                LineCoverageHitSpectraMatrix = spectralizer.LineCoverageHitSpectraMatrix;
                 Console.WriteLine("Spectra Matrix generated\n");
 
             }
@@ -157,8 +157,7 @@ namespace Aletheia
                 reader.parseSheet();
                 DataTable dataTable = reader.getDataTable();
 
-                string pathAdditional = "FaultLocalization";
-                string path = workingDirectory + "\\" + pathAdditional;
+                string path = workingDirectory ;
                 if (commandLineArguments.ContainsKey(PossibleCommandLineArguments.FAULT_RANKING_METRIC))
                     rankingMetric = commandLineArguments[PossibleCommandLineArguments.FAULT_RANKING_METRIC].Value;
 
@@ -173,14 +172,42 @@ namespace Aletheia
                         CommandLinePrinter.printToCommandLine($"Fault Localization for ranking metric {strategy} complete\n");
                     }
 
-                } else
+                }
+                else
                 {
                     EStrategy rankingStrategy = getFaultLocalizationStrategy(rankingMetric);
                     Detective detective = new Clustering.FaultLocalization.Detective(dataTable, rankingStrategy, commandLineArguments, path);
                     detective.DetectFault();
                     CommandLinePrinter.printToCommandLine($"Fault Localization for ranking metric {rankingMetric} complete\n");
                 }
-                
+
+            }
+            else if (operation.Equals("examScore", StringComparison.OrdinalIgnoreCase))
+            {
+
+                string output = "\nRunning Exam Score\n";
+
+                CommandLinePrinter.printToCommandLine(output);
+                char separator;
+                string inputPath;
+                string numberOfBugs;
+
+                if (!commandLineArguments.ContainsKey(PossibleCommandLineArguments.SEPARATOR))
+                    separator = ' ';
+                else
+                    separator = commandLineArguments[PossibleCommandLineArguments.SEPARATOR].Value.Trim()[0];
+
+
+                if (!commandLineArguments.ContainsKey(PossibleCommandLineArguments.INPUT_PATH)) throw new Exception("No input path");
+                inputPath = commandLineArguments[PossibleCommandLineArguments.INPUT_PATH].Value;
+
+                if (!commandLineArguments.ContainsKey(PossibleCommandLineArguments.BUGSNUMBER)) throw new Exception("No number of bugs");
+                numberOfBugs = commandLineArguments[PossibleCommandLineArguments.BUGSNUMBER].Value;
+
+                ExamScore.CalculateExamScore calculateExamScore = new ExamScore.CalculateExamScore(inputPath, workingDirectory, int.Parse(numberOfBugs), separator);
+                calculateExamScore.Calculate();
+
+
             }
             else if (operation.Equals("getHelp", StringComparison.OrdinalIgnoreCase))
             {
@@ -195,7 +222,7 @@ namespace Aletheia
                 output += "gtest_path: mandatory argument for HitSpectra Generation, show the exe file of test project\n";
                 output += "ranking_metric: ranking metric for fault localization, default is Jaccard";
                 output += "clustering_method: default is maxclust\n";
-                output+="linkage_method: default is average\n";
+                output += "linkage_method: default is average\n";
                 output += "linkage_metric: default is euclidean\n";
                 output += "similarity_threshold: default is 0.8\ncomparison_range: default is 0.1\n";
                 output += "function_coverage: boolean argument, default is true\n";
@@ -203,55 +230,56 @@ namespace Aletheia
                 output += "invoked_function_with_param_coverage: boolean argument, default is true\n";
                 output += "counting_function_invokation_coverage: boolean argument, default is true\n";
                 output += "line_coverage: boolean argument, default is true\n";
+                output += "bugsnumber: The number of bugs that exists in the software\n";
                 CommandLinePrinter.printToCommandLine(output);
             }
 
 
             // Do the clustering
             //if (clustering)
-            if(operation.Equals("clustering", StringComparison.OrdinalIgnoreCase))
+            if (operation.Equals("clustering", StringComparison.OrdinalIgnoreCase))
             {
-                
+
                 string output = "\nClustering   HitSpectraMatrices\n";
                 CommandLinePrinter.printToCommandLine(output);
-                if ( FunctionHitSpectraMatrix != null)
+                if (FunctionHitSpectraMatrix != null)
                 {
                     string pathAdditional = "Clustering_FunctionHitSpectra";
                     string path = workingDirectory + "\\" + pathAdditional;
 
-                    doClustering( FunctionHitSpectraMatrix, path);
+                    doClustering(FunctionHitSpectraMatrix, path);
                 }
 
-                if ( CountingFunctionInvokationsHitSpectraMatrix != null)
+                if (CountingFunctionInvokationsHitSpectraMatrix != null)
                 {
                     string pathAdditional = "Clustering_CountingFunctionInvokationsHitSpectra";
                     string path = workingDirectory + "\\" + pathAdditional;
 
-                    doClustering( CountingFunctionInvokationsHitSpectraMatrix, path);
+                    doClustering(CountingFunctionInvokationsHitSpectraMatrix, path);
                 }
 
-                if ( InvokedFunctionsHitSpectraMatrix != null)
+                if (InvokedFunctionsHitSpectraMatrix != null)
                 {
                     string pathAdditional = "Clustering_InvokedFunctionsHitSpectra";
                     string path = workingDirectory + "\\" + pathAdditional;
 
-                    doClustering( InvokedFunctionsHitSpectraMatrix, path);
+                    doClustering(InvokedFunctionsHitSpectraMatrix, path);
                 }
 
-                if ( InvokedFunctionsWithParametersHitSpectraMatrix != null)
+                if (InvokedFunctionsWithParametersHitSpectraMatrix != null)
                 {
                     string pathAdditional = "Clustering_InvokedFunctionsWithParametersHitSpectra";
                     string path = workingDirectory + "\\" + pathAdditional;
 
-                    doClustering( InvokedFunctionsWithParametersHitSpectraMatrix, path);
+                    doClustering(InvokedFunctionsWithParametersHitSpectraMatrix, path);
                 }
 
-                if ( LineCoverageHitSpectraMatrix != null)
+                if (LineCoverageHitSpectraMatrix != null)
                 {
                     string pathAdditional = "Clustering_LineCoverageHitSpectra";
                     string path = workingDirectory + "\\" + pathAdditional;
 
-                    doClustering( LineCoverageHitSpectraMatrix, path);
+                    doClustering(LineCoverageHitSpectraMatrix, path);
                 }
 
             }
@@ -310,7 +338,7 @@ namespace Aletheia
             try
             {
                 return outDir
-                + "\\"+operation.ToUpper()+"_"
+                + "\\" + operation.ToUpper() + "_"
                 + DateTime.Now.Year + "-"
                 + (DateTime.Now.Month >= 10 ? DateTime.Now.Month + "-" : "0" + DateTime.Now.Month + "-")
                 + (DateTime.Now.Day >= 10 ? DateTime.Now.Day + "_" : "0" + DateTime.Now.Day + "_")
@@ -354,7 +382,7 @@ namespace Aletheia
                 {
                     return es;
                 }
-              
+
             }
             return EStrategy.Jaccard;
         }

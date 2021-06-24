@@ -3,39 +3,37 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Aletheia.WorksheetParser.import
 {
     /// <summary>
-    /// Little customized class to read HitSpectra
-    /// This class is created as the HitSpectra file has header row to be processed separately
+    /// Little customized class to read FaultLocalization
+    /// This class is created as the FaultLocalization file has header row to be processed separately
     /// </summary>
-    public class HitSpectraCsvSheetReader
+    public class FaultLocalizationCsvSheetReader
     {
-        private char separator;
+        private readonly char separator;
 
-        private string path;
+        private readonly string path;
 
-        private List<string> linesOfTheSheet;
+        private readonly List<string> linesOfTheSheet;
         private DataTable table;
         private string[] columnNames;
         /// <summary>
         /// the constructor initializes member variables
         /// </summary>
-        /// <param name="path">Path to HitSpectra</param>
-        /// <param name="separator">Separator used in the HitSpectra</param>
-        public HitSpectraCsvSheetReader(string path, char separator)
+        /// <param name="path">Path to FaultLocalization</param>
+        /// <param name="separator">Separator used in the FaultLocalization</param>
+        public FaultLocalizationCsvSheetReader(string path, char separator)
         {
             this.path = path;
             linesOfTheSheet = new List<string>();
             this.separator = separator;
         }
         /// <summary>
-        /// reads the HitSpectra file and add the lines to the data row
+        /// reads the FaultLocalization file and add the lines to the data row
         /// </summary>
-        private void readFile()
+        private void ReadFile()
         {
             string line;
             int counter = 0;
@@ -59,34 +57,34 @@ namespace Aletheia.WorksheetParser.import
             return table;
         }
         /// <summary>
-        /// Parse the HitSpectra
+        /// Parse the FaultLocalization
         /// use the first line to generate data table template\
         /// then parse the rest of the lines
         /// </summary>
-        public void parseSheet()
+        public void ParseSheet()
         {
             if (File.Exists(path))
             {
-                readFile();
+                ReadFile();
             }
             else
             {
                 throw new Exception();
             }
 
-            generateDataTable(linesOfTheSheet.ElementAt(0));
+            GenerateDataTable(linesOfTheSheet.ElementAt(0));
 
             for (int i = 1; i < linesOfTheSheet.Count; i++)
             {
-                parseLine(linesOfTheSheet.ElementAt(i));
+                ParseLine(linesOfTheSheet.ElementAt(i));
             }
         }
 
         /// <summary>
         /// Parse a single line and put it to data row
         /// </summary>
-        /// <param name="line">Line to be parsed from HitSpectra</param>
-        private void parseLine(string line)
+        /// <param name="line">Line to be parsed from FaultLocalization</param>
+        private void ParseLine(string line)
         {
             string[] values = line.Split(separator);
             DataRow row = table.NewRow();
@@ -95,24 +93,18 @@ namespace Aletheia.WorksheetParser.import
             {
                 string value = values[i];
                 string columnName = columnNames[i];
-      
-                if (table.Columns[columnName].DataType == Type.GetType("System.Int32"))
-                {
-                    row[columnName] = Int32.Parse(value);
-                }
-                else if (table.Columns[columnName].DataType == Type.GetType("System.String"))
-                {
+ 
                     row[columnName] = value;
-                }
+                
             }
 
             table.Rows.Add(row);
         }
         /// <summary>
-        /// generates data table with the column names from the first line from HitSpectra
+        /// generates data table with the column names from the first line from FaultLocalization
         /// </summary>
         /// <param name="line">Line containing column names</param>
-        private void generateDataTable(string line)
+        private void GenerateDataTable(string line)
         {
             table = new DataTable();
 
@@ -126,13 +118,9 @@ namespace Aletheia.WorksheetParser.import
             for (int i = 1; i < columnNames.Length; i++)
             {
                 DataColumn column = new DataColumn();
-                column.DataType = Type.GetType("System.Int32");
+                column.DataType = Type.GetType("System.String");
                 column.ColumnName = columnNames[i].Trim();
-                if (table.Columns.Contains(column.ColumnName))
-                {
-                    column.ColumnName += "_duplicate_at_" + i;
-                    columnNames[i] += "_duplicate_at_" + i;
-                }
+
                     
                 table.Columns.Add(column);
             }

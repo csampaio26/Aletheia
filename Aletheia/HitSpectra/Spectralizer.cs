@@ -294,7 +294,7 @@ namespace Aletheia.HitSpectra
                 #region Export Function Hit-Spectra-Matrix
                 functionHitSpectraMatrix.Columns["Result"].SetOrdinal(functionHitSpectraMatrix.Columns.Count - 1);
                 writer = new CsvSheetWriter(pathFunctionHitSpectraMatrix, separator, functionHitSpectraMatrix);
-                writer.writeToWorkSheet();
+                writer.WriteToWorkSheet();
                 if (DEBUG)
                     Console.WriteLine("Function Hit Spectra is written to file\n");
                 #endregion
@@ -305,7 +305,7 @@ namespace Aletheia.HitSpectra
                 #region Export Invoked Functions Hit-Spectra-Matrix
                 invokedFunctionsHitSpectraMatrix.Columns["Result"].SetOrdinal(invokedFunctionsHitSpectraMatrix.Columns.Count - 1);
                 writer = new CsvSheetWriter(pathInvokedFunctionsHitSpectraMatrix, separator, invokedFunctionsHitSpectraMatrix);
-                writer.writeToWorkSheet();
+                writer.WriteToWorkSheet();
                 if (DEBUG)
                     Console.WriteLine("Invoked Function Hit Spectra is written to file\n");
                 #endregion
@@ -316,7 +316,7 @@ namespace Aletheia.HitSpectra
                 #region Export Invoked Functions With Parameters Hit-Spectra-Matrix
                 invokedFunctionsWithParametersHitSpectraMatrix.Columns["Result"].SetOrdinal(invokedFunctionsWithParametersHitSpectraMatrix.Columns.Count - 1);
                 writer = new CsvSheetWriter(pathInvokedFunctionsWithParametersHitSpectraMatrix, separator, invokedFunctionsWithParametersHitSpectraMatrix);
-                writer.writeToWorkSheet();
+                writer.WriteToWorkSheet();
                 if (DEBUG)
                     Console.WriteLine("Invoked Function with param Hit Spectra is written to file\n");
                 #endregion
@@ -327,7 +327,7 @@ namespace Aletheia.HitSpectra
                 #region Export Counting Function Invokations Hit-Spectra-Matrix
                 countingFunctionInvokationsHitSpectraMatrix.Columns["Result"].SetOrdinal(countingFunctionInvokationsHitSpectraMatrix.Columns.Count - 1);
                 writer = new CsvSheetWriter(pathCountingFunctionInvokationsHitSpectraMatrix, separator, countingFunctionInvokationsHitSpectraMatrix);
-                writer.writeToWorkSheet();
+                writer.WriteToWorkSheet();
                 if (DEBUG)
                     Console.WriteLine("Coungint function Hit Spectra is written to file\n");
                 #endregion
@@ -338,7 +338,7 @@ namespace Aletheia.HitSpectra
                 #region Export Line Coverage Hit-Spectra-Matrix
                 lineCoverageHitSpectraMatrix.Columns["Result"].SetOrdinal(lineCoverageHitSpectraMatrix.Columns.Count - 1);
                 writer = new CsvSheetWriter(pathLineCoverageHitSpectraMatrix, separator, lineCoverageHitSpectraMatrix);
-                writer.writeToWorkSheet();
+                writer.WriteToWorkSheet();
                 if (DEBUG)
                     Console.WriteLine("Line Hit Spectra is written to file\n");
                 #endregion

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Aletheia.CommandLine.input
+﻿namespace Aletheia.CommandLine.input
 {
     public static class PossibleCommandLineArguments
     {
@@ -38,6 +32,6 @@ namespace Aletheia.CommandLine.input
         public static readonly string COUNTING_FUNCTION_INVOKATION_COVERAGE = "counting_function_invokation_coverage";
         public static readonly string LINE_COVERAGE = "line_coverage";
         public static readonly string DEBUG = "debug";
-
+        public static readonly string BUGSNUMBER = "bugsnumber";
     }
 }

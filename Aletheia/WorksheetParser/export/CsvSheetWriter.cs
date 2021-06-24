@@ -14,10 +14,10 @@ namespace Aletheia.WorksheetParser.export
     /// </summary>
     public class CsvSheetWriter : AWorksheetWriter
     {
-        private char separator;
-        private string dest;
+        private readonly char separator;
+        private readonly string dest;
 
-        private DataTable target;
+        private readonly DataTable target;
         /// <summary>
         /// the constructor sets the value of some member variables
         /// </summary>
@@ -33,7 +33,7 @@ namespace Aletheia.WorksheetParser.export
         /// <summary>
         /// It reads each row from datatable and writes using streamwriter
         /// </summary>
-        public void writeToWorkSheet()
+        public void WriteToWorkSheet()
         {
             StreamWriter streamWriter = new StreamWriter(dest, false);
 

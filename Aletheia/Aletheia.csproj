@@ -111,6 +111,7 @@
     <Compile Include="CommandLine\input\ICommandLineReader.cs" />
     <Compile Include="CommandLine\input\PossibleCommandLineArgument.cs" />
     <Compile Include="CommandLine\output\CommandLinePrinter.cs" />
+    <Compile Include="ExamScore\ExamScore.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ProjectConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -131,6 +132,7 @@
     <Compile Include="WorksheetParser\export\CsvSheetWriter.cs" />
     <Compile Include="WorksheetParser\import\AWorksheetReader.cs" />
     <Compile Include="WorksheetParser\import\CsvSheetReader.cs" />
+    <Compile Include="WorksheetParser\import\FaultLocalizationCsvSheetReader.cs" />
     <Compile Include="WorksheetParser\import\HitSpectraCsvSheetReader.cs" />
   </ItemGroup>
   <ItemGroup>

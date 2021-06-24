@@ -275,7 +275,7 @@ namespace Aletheia.Clustering
                         System.IO.Directory.CreateDirectory(dirPath);
                     string exportPath = dirPath + "\\Cluster_" + (i + 1) + "_HitSpectra.csv";
                     CsvSheetWriter writer= new CsvSheetWriter(exportPath, separator, combinedDataTable);
-                    writer.writeToWorkSheet();
+                    writer.WriteToWorkSheet();
                 }
             }
         }
@@ -632,7 +632,7 @@ namespace Aletheia.Clustering
             {
                 if(suspiciousnessListForEveryCluster[key].Count>0)
                 { 
-                    string output = "Rank" + separator + "Functionname" + separator + "Suspiciousness Value(" + faultLocalizationStrategy.ToString() + ")\n";
+                    string output = "Rank" + separator + "Functionname" + separator + "Suspiciousness Value\n";
                     string path = parentPath + "\\" + filenameTemplate + key + ".csv";
                     List<Item> tmpList = suspiciousnessListForEveryCluster[key];
 
