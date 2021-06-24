@@ -32,6 +32,5 @@
         public static readonly string COUNTING_FUNCTION_INVOKATION_COVERAGE = "counting_function_invokation_coverage";
         public static readonly string LINE_COVERAGE = "line_coverage";
         public static readonly string DEBUG = "debug";
-        public static readonly string BUGSNUMBER = "bugsnumber";
     }
 }

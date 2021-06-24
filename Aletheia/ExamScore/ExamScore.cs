@@ -12,21 +12,19 @@ using System.Threading.Tasks;
 namespace Aletheia.ExamScore
 {
 
-    public class CalculateExamScore
+    public class ExameScoreCalculation
     {
         readonly string inputPath;
         readonly string destination;
-        readonly int numberOfBugs;
         readonly char separator;
 
 
-        public CalculateExamScore(string inputPath, string destination, int numberOfBugs, char separator)
+        public ExameScoreCalculation(string inputPath, string destination, char separator)
         {
             if (Directory.Exists(inputPath))
             {
                 this.inputPath = inputPath;
                 this.destination = destination;
-                this.numberOfBugs = numberOfBugs;
                 this.separator = separator;
             }
             else
@@ -35,7 +33,7 @@ namespace Aletheia.ExamScore
             }
         }
 
-        public void Calculate()
+        public void CalculateExamScore()
         {
             DataTable ExamScoreDatatable = new DataTable();
             string[] columnNames = { "Ranking Metric", "ExamScore" };
@@ -64,10 +62,10 @@ namespace Aletheia.ExamScore
                 DataTable dataTable = reader.getDataTable();
 
                 var allStatements = dataTable.AsEnumerable()
-                .Select(x => x.Field<string>(2))
+                .Select(x => x.Field<string>(0))
                 .ToList();
 
-                double examScore = allStatements.Sum(x => double.Parse(x)) / numberOfBugs;
+                double examScore = allStatements.Sum(x => double.Parse(x) / allStatements.Count) / allStatements.Count;
 
                 toPrint = "--------------------------------------------------" +
                     "\n" +

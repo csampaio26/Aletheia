@@ -256,13 +256,6 @@ namespace Aletheia.CommandLine.input
                         addNewArgumentToArgumentsList(key, value);
                         args.Add(key, value);
                     }
-                    else if (tmpKey.Equals(PossibleCommandLineArguments.BUGSNUMBER, StringComparison.OrdinalIgnoreCase))
-                    {
-                        String key = PossibleCommandLineArguments.BUGSNUMBER;
-                        string value = argument.Split('=')[1].Trim();
-                        addNewArgumentToArgumentsList(key, value);
-                        args.Add(key, value);
-                    }
                 }
                 catch (Exception e)
                 {

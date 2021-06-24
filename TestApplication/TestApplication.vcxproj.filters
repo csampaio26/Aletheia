@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\tictactoe">
+      <UniqueIdentifier>{f5a3c42d-5e7c-4495-b704-d24511478d56}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="libman.json" />
@@ -22,5 +25,31 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="controller.cpp">
+      <Filter>Source Files\tictactoe</Filter>
+    </ClCompile>
+    <ClCompile Include="solver.cpp">
+      <Filter>Source Files\tictactoe</Filter>
+    </ClCompile>
+    <ClCompile Include="view.cpp">
+      <Filter>Source Files\tictactoe</Filter>
+    </ClCompile>
+    <ClCompile Include="testRunner.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="controller.h">
+      <Filter>Source Files\tictactoe</Filter>
+    </ClInclude>
+    <ClInclude Include="globals.h">
+      <Filter>Source Files\tictactoe</Filter>
+    </ClInclude>
+    <ClInclude Include="solver.h">
+      <Filter>Source Files\tictactoe</Filter>
+    </ClInclude>
+    <ClInclude Include="view.h">
+      <Filter>Source Files\tictactoe</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

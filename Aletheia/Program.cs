@@ -190,7 +190,6 @@ namespace Aletheia
                 CommandLinePrinter.printToCommandLine(output);
                 char separator;
                 string inputPath;
-                string numberOfBugs;
 
                 if (!commandLineArguments.ContainsKey(PossibleCommandLineArguments.SEPARATOR))
                     separator = ' ';
@@ -201,12 +200,8 @@ namespace Aletheia
                 if (!commandLineArguments.ContainsKey(PossibleCommandLineArguments.INPUT_PATH)) throw new Exception("No input path");
                 inputPath = commandLineArguments[PossibleCommandLineArguments.INPUT_PATH].Value;
 
-                if (!commandLineArguments.ContainsKey(PossibleCommandLineArguments.BUGSNUMBER)) throw new Exception("No number of bugs");
-                numberOfBugs = commandLineArguments[PossibleCommandLineArguments.BUGSNUMBER].Value;
-
-                ExamScore.CalculateExamScore calculateExamScore = new ExamScore.CalculateExamScore(inputPath, workingDirectory, int.Parse(numberOfBugs), separator);
-                calculateExamScore.Calculate();
-
+                ExamScore.ExameScoreCalculation calculateExamScore = new ExamScore.ExameScoreCalculation(inputPath, workingDirectory,  separator);
+                calculateExamScore.CalculateExamScore();
 
             }
             else if (operation.Equals("getHelp", StringComparison.OrdinalIgnoreCase))
@@ -230,7 +225,6 @@ namespace Aletheia
                 output += "invoked_function_with_param_coverage: boolean argument, default is true\n";
                 output += "counting_function_invokation_coverage: boolean argument, default is true\n";
                 output += "line_coverage: boolean argument, default is true\n";
-                output += "bugsnumber: The number of bugs that exists in the software\n";
                 CommandLinePrinter.printToCommandLine(output);
             }
 
