@@ -2,17 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Aletheia.HitSpectra;
 using System.Data;
 using Aletheia.Clustering.FaultLocalization.SimilarityMetrics;
 using Aletheia.WorksheetParser.import;
 using Aletheia.CommandLine.output;
-using MwMatlabClustering;
 using Aletheia.Clustering.FaultLocalization;
-using System.IO;
-using Aletheia.WorksheetParser.export;
 
 namespace Aletheia
 {
@@ -54,7 +48,7 @@ namespace Aletheia
             }
 
 
-            printCommandLineParameters();
+            PrintCommandLineParameters();
 
 
             //check which operation is seleced
@@ -76,7 +70,7 @@ namespace Aletheia
                 outputDirectory = "C:\\HitSpectras";
             else
                 outputDirectory = commandLineArguments[PossibleCommandLineArguments.OUTPUT_DIRECTORY].Value;
-            if ((workingDirectory = Program.createWorkingDirectory(outputDirectory)) == null) return;
+            if ((workingDirectory = Program.CreateWorkingDirectory(outputDirectory)) == null) return;
 
             // Check if clustering should be done
             //if (!commandLineArguments.Keys.Contains(PossibleCommandLineArguments.CLUSTERING)) return;
@@ -134,7 +128,7 @@ namespace Aletheia
                 string pathAdditional = "Clustering";
                 string path = workingDirectory + "\\" + pathAdditional;
 
-                doClustering(dataTable, path);
+                DoClustering(dataTable, path);
             }
             else if (operation.Equals("faultLocalization", StringComparison.OrdinalIgnoreCase))
             {
@@ -175,7 +169,7 @@ namespace Aletheia
                 }
                 else
                 {
-                    EStrategy rankingStrategy = getFaultLocalizationStrategy(rankingMetric);
+                    EStrategy rankingStrategy = GetFaultLocalizationStrategy(rankingMetric);
                     Detective detective = new Clustering.FaultLocalization.Detective(dataTable, rankingStrategy, commandLineArguments, path);
                     detective.DetectFault();
                     CommandLinePrinter.printToCommandLine($"Fault Localization for ranking metric {rankingMetric} complete\n");
@@ -241,7 +235,7 @@ namespace Aletheia
                     string pathAdditional = "Clustering_FunctionHitSpectra";
                     string path = workingDirectory + "\\" + pathAdditional;
 
-                    doClustering(FunctionHitSpectraMatrix, path);
+                    DoClustering(FunctionHitSpectraMatrix, path);
                 }
 
                 if (CountingFunctionInvokationsHitSpectraMatrix != null)
@@ -249,7 +243,7 @@ namespace Aletheia
                     string pathAdditional = "Clustering_CountingFunctionInvokationsHitSpectra";
                     string path = workingDirectory + "\\" + pathAdditional;
 
-                    doClustering(CountingFunctionInvokationsHitSpectraMatrix, path);
+                    DoClustering(CountingFunctionInvokationsHitSpectraMatrix, path);
                 }
 
                 if (InvokedFunctionsHitSpectraMatrix != null)
@@ -257,7 +251,7 @@ namespace Aletheia
                     string pathAdditional = "Clustering_InvokedFunctionsHitSpectra";
                     string path = workingDirectory + "\\" + pathAdditional;
 
-                    doClustering(InvokedFunctionsHitSpectraMatrix, path);
+                    DoClustering(InvokedFunctionsHitSpectraMatrix, path);
                 }
 
                 if (InvokedFunctionsWithParametersHitSpectraMatrix != null)
@@ -265,7 +259,7 @@ namespace Aletheia
                     string pathAdditional = "Clustering_InvokedFunctionsWithParametersHitSpectra";
                     string path = workingDirectory + "\\" + pathAdditional;
 
-                    doClustering(InvokedFunctionsWithParametersHitSpectraMatrix, path);
+                    DoClustering(InvokedFunctionsWithParametersHitSpectraMatrix, path);
                 }
 
                 if (LineCoverageHitSpectraMatrix != null)
@@ -273,7 +267,7 @@ namespace Aletheia
                     string pathAdditional = "Clustering_LineCoverageHitSpectra";
                     string path = workingDirectory + "\\" + pathAdditional;
 
-                    doClustering(LineCoverageHitSpectraMatrix, path);
+                    DoClustering(LineCoverageHitSpectraMatrix, path);
                 }
 
             }
@@ -288,7 +282,7 @@ namespace Aletheia
         /// </summary>
         /// <param name="dataTable">A DataTable object containig conerning HitSpectra</param>
         /// <param name="path">A string indicating where the clustering will be saved</param>
-        private static void doClustering(DataTable dataTable, string path)
+        private static void DoClustering(DataTable dataTable, string path)
         {
             if (!System.IO.Directory.Exists(path)) System.IO.Directory.CreateDirectory(path);
 
@@ -307,9 +301,9 @@ namespace Aletheia
         /// <param name="outDir">The diretory to be created</param>
         /// <returns></returns>
 
-        private static string createWorkingDirectory(string outDir)
+        private static string CreateWorkingDirectory(string outDir)
         {
-            string workingDir = Program.createOutputDirectory(outDir);
+            string workingDir = Program.CreateOutputDirectory(outDir);
             try
             {
                 System.IO.Directory.CreateDirectory(workingDir);
@@ -327,7 +321,7 @@ namespace Aletheia
         /// </summary>
         /// <param name="outDir">The base output directory</param>
         /// <returns></returns>
-        private static string createOutputDirectory(string outDir)
+        private static string CreateOutputDirectory(string outDir)
         {
             try
             {
@@ -349,7 +343,7 @@ namespace Aletheia
         /// <summary>
         /// Prints command line parameters on the console
         /// </summary>
-        private static void printCommandLineParameters()
+        private static void PrintCommandLineParameters()
         {
             string output = "**********************************\n"
                 + "* Summary Commandline Parameters *\n"
@@ -368,7 +362,7 @@ namespace Aletheia
         /// </summary>
         /// <param name="cmdStrategy"></param>
         /// <returns></returns>
-        private static EStrategy getFaultLocalizationStrategy(string cmdStrategy)
+        private static EStrategy GetFaultLocalizationStrategy(string cmdStrategy)
         {
             foreach (EStrategy es in Enum.GetValues(typeof(EStrategy)))
             {

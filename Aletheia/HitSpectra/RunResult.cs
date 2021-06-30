@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Aletheia.HitSpectra
+﻿namespace Aletheia.HitSpectra
 {
     /// <summary>
     /// Enumeration of possible results of a test-run

@@ -1,10 +1,7 @@
 ﻿using Aletheia.HitSpectra.persistence;
 using Aletheia.HitSpectra.persistence.cobertura;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Aletheia.HitSpectra
 {
@@ -13,10 +10,10 @@ namespace Aletheia.HitSpectra
     /// </summary>
     public class TestcaseContext
     {
-        private string name;
-        private RunResult result;
-        private Coverage testCoverage;
-        private Dictionary<Class, HashSet<Block>> allInThisTestcaseInvokedFunctions;
+        private readonly string name;
+        private readonly RunResult result;
+        private readonly Coverage testCoverage;
+        private readonly Dictionary<Class, HashSet<Block>> allInThisTestcaseInvokedFunctions;
         private Dictionary<Block, bool> testcaseSpectra;
         /// <summary>
         /// the constructor initializes the member variables
@@ -73,7 +70,7 @@ namespace Aletheia.HitSpectra
         /// </summary>
         /// <param name="function">Function block</param>
         /// <param name="srcFile">Class object</param>
-        public void addFunction(Block function, Class srcFile)
+        public void AddFunction(Block function, Class srcFile)
         {
             HashSet<Block> hashSet;
 
@@ -93,7 +90,7 @@ namespace Aletheia.HitSpectra
         /// kind of set method for testCase spectra
         /// </summary>
         /// <param name="testcaseSpectra">test case spectra</param>
-        public void addTestcaseSpectra(Dictionary<Block, bool> testcaseSpectra)
+        public void AddTestcaseSpectra(Dictionary<Block, bool> testcaseSpectra)
         {
             this.testcaseSpectra = testcaseSpectra;
         }

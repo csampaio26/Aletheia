@@ -107,7 +107,7 @@ namespace Aletheia.HitSpectra
                 toPrint = "Coverage-analysis for " + baseProject.Name
                     + "\n--------------------------------------------------"
                     + "\nStep 1: Using gtest-executable located at:\n"
-                    + baseProject.getExecutable() + "\n";
+                    + baseProject.GetExecutable() + "\n";
             }
             else if (projectMode.Equals("chromium"))
             {
@@ -654,7 +654,7 @@ namespace Aletheia.HitSpectra
                                     if (srcFileSpectra[tmpFunction])
                                     {
                                         allFunctions.Add(tmpFunction);
-                                        testcaseContext.addFunction(tmpFunction, tmpClass);
+                                        testcaseContext.AddFunction(tmpFunction, tmpClass);
                                     }
 
                                     if (!testcaseSpectra.ContainsKey(tmpFunction))
@@ -670,7 +670,7 @@ namespace Aletheia.HitSpectra
                             }
                         }
                     }
-                    testcaseContext.addTestcaseSpectra(testcaseSpectra);
+                    testcaseContext.AddTestcaseSpectra(testcaseSpectra);
                 }
             }
         }
@@ -734,9 +734,9 @@ namespace Aletheia.HitSpectra
                                     {
                                         foreach (Block function in sourceFileSpectras[tmpClass].Keys)
                                         {
-                                            if (function.containsLineAndIsBlockInvokation(line.number))
+                                            if (function.ContainsLineAndIsBlockInvokation(line.number))
                                             {
-                                                List<InvokedFunction> functions = function.getListOfInvokedFuncsInLine(line.number);
+                                                List<InvokedFunction> functions = function.GetListOfInvokedFuncsInLine(line.number);
                                                 string filename = tmpClass.FileName;
                                                 foreach (InvokedFunction fct in functions)
                                                 {
@@ -793,9 +793,9 @@ namespace Aletheia.HitSpectra
                                     {
                                         foreach (Block function in sourceFileSpectras[tmpClass].Keys)
                                         {
-                                            if (function.containsLineAndIsBlockInvokation(line.number))
+                                            if (function.ContainsLineAndIsBlockInvokation(line.number))
                                             {
-                                                List<InvokedFunction> functions = function.getListOfInvokedFuncsInLine(line.number);
+                                                List<InvokedFunction> functions = function.GetListOfInvokedFuncsInLine(line.number);
                                                 string filename = tmpClass.FileName;
                                                 foreach (InvokedFunction fct in functions)
                                                 {
@@ -843,15 +843,15 @@ namespace Aletheia.HitSpectra
                                 {
                                     foreach (Block function in testcaseContext.getListOfFunctionsFromSourceFile(tmpClass))
                                     {
-                                        if (function.containsLineAndIsBlockInvokation(line.number))
+                                        if (function.ContainsLineAndIsBlockInvokation(line.number))
                                         {
-                                            List<InvokedFunction> functions = function.getListOfInvokedFuncsInLine(line.number);
+                                            List<InvokedFunction> functions = function.GetListOfInvokedFuncsInLine(line.number);
                                             // string filename = tmpClass.FileName;
                                             foreach (InvokedFunction invokedFunction in functions)
                                             {
                                                 foreach (Block fctFromAllFunctions in allFunctions)
                                                 {
-                                                    if (invokedFunction.compareFunctionInvokationToFunction(fctFromAllFunctions))
+                                                    if (invokedFunction.CompareFunctionInvokationToFunction(fctFromAllFunctions))
                                                     {
                                                         int numberOInvokations = (int)datarow[fctFromAllFunctions.ConcatenatedName];
                                                         datarow[fctFromAllFunctions.ConcatenatedName] = numberOInvokations + 1;
@@ -912,7 +912,7 @@ namespace Aletheia.HitSpectra
         /// </summary>
         private void trimTestCases()
         {
-            baseProject.limitTestCase();
+            baseProject.LimitTestCase();
         }
 #region Remove useless columns in Hit Spectra Matrices
         /// <summary>
@@ -1039,7 +1039,7 @@ namespace Aletheia.HitSpectra
                                 Task<RunResult> currentTest;
                                 
                                 if (projectMode.Equals("default"))
-                                    currentTest = executeUnitTestVS(projName, nextUnitTestIdent, workingDir, baseProject.getExecutable(), executionTimeout);
+                                    currentTest = executeUnitTestVS(projName, nextUnitTestIdent, workingDir, baseProject.GetExecutable(), executionTimeout);
                                 else // if(projectMode.Equals("chromium"))
                                 {
                                     currentTest = executeUnitTest(projName, nextUnitTestIdent, workingDir, gtestPath, executionTimeout);
@@ -1057,7 +1057,7 @@ namespace Aletheia.HitSpectra
                                     try
                                     {
                                         XmlSerializer serializer = new XmlSerializer(typeof(Coverage));
-                                        string covName = getCovname(baseProject.getExecutable());
+                                        string covName = getCovname(baseProject.GetExecutable());
                                         StreamReader reader = new StreamReader(workingDir + "\\" + nextUnitTestIdent + "\\" + covName + "Coverage.xml");
 
                                         Coverage testCov = (Coverage)serializer.Deserialize(reader);
@@ -1643,11 +1643,11 @@ namespace Aletheia.HitSpectra
             string proj = unitTest.Substring(0, ind);
 
 
-            mimic.setName(proj);
+            mimic.SetName(proj);
             //directory of the possible locaiton of ninja file
             ind = gtestPath.IndexOf(unitTest);
             string dir = gtestPath.Substring(0, ind);
-            mimic.setDirectory(dir);
+            mimic.SetDirectory(dir);
             //set testsets
             Dictionary<string, List<string>> extractedTestSets = new Dictionary<string, List<string>>();
             Dictionary<string, List<string>> extractedTestSets2 = new Dictionary<string, List<string>>();
@@ -1661,7 +1661,7 @@ namespace Aletheia.HitSpectra
             //while (extractedTestSets2.Count > 2)
               //  extractedTestSets2.Remove(extractedTestSets2.Keys.Last());
 
-            mimic.setTestSet(extractedTestSets2);
+            mimic.SetTestSet(extractedTestSets2);
             //trimTestCases();
 
             return mimic;
@@ -1989,7 +1989,7 @@ namespace Aletheia.HitSpectra
             if(projectMode.Equals("default"))
             {
                 // check if the default exe exists
-                if (System.IO.File.Exists(baseProject.getExecutable()))
+                if (System.IO.File.Exists(baseProject.GetExecutable()))
                 {
                     return true;
                 }else
@@ -1997,12 +1997,12 @@ namespace Aletheia.HitSpectra
                     //check if gtest is valid and is exist
                     if(gtestPath!=null && !gtestPath.Equals("") && System.IO.File.Exists(gtestPath))
                     {
-                        baseProject.setExecutable(gtestPath);
+                        baseProject.SetExecutable(gtestPath);
                         return true;
                     }else
                     {
                         Console.Error.WriteLine("Could not find gtest-executable at: ");
-                        Console.Error.WriteLine(baseProject.getExecutable());
+                        Console.Error.WriteLine(baseProject.GetExecutable());
                         return false;
                     }
                     
@@ -2012,7 +2012,7 @@ namespace Aletheia.HitSpectra
             {
                 if(gtestPath != null && !gtestPath.Equals("") && System.IO.File.Exists(gtestPath))
                 {
-                    baseProject.setExecutable(gtestPath);
+                    baseProject.SetExecutable(gtestPath);
                     return true;
                 }
                 else

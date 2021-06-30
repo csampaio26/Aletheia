@@ -122,7 +122,7 @@ namespace Aletheia.Clustering
                 tmpSolution = new MWNumericArray(failedTestcasesInHitSpectraMatrix);
             else
                  tmpSolution= matlabClustering.matlabLinkage(new MWNumericArray(failedTestcasesInHitSpectraMatrix), new MWCharArray(linkage_method), new MWCharArray(linkage_metric));
-            binaryClusterTree = Tools.buildTwoDimensionalDoubleArrayFromMWArray(tmpSolution);
+            binaryClusterTree = Tools.BuildTwoDimensionalDoubleArrayFromMWArray(tmpSolution);
 
             output = "\nFinished Linkage\n";
             CommandLinePrinter.printToCommandLine(output);
@@ -184,7 +184,7 @@ namespace Aletheia.Clustering
                 CommandLinePrinter.printToCommandLine(output);
             }
             int i = 0, j = 0, counter = 0;
-            int[][] failedHitSpectra = Tools.transformTwoDimensionalArrayToJaggedArray(failedTestcasesInHitSpectraMatrix);
+            int[][] failedHitSpectra = Tools.TransformTwoDimensionalArrayToJaggedArray(failedTestcasesInHitSpectraMatrix);
             //step 1. separate the test cases from listOfCluster per cluster
             //idListFailed contains the name of failed test cases
             //clusterClassification holds the cluster number for each test case
@@ -404,25 +404,25 @@ namespace Aletheia.Clustering
             int maxNumberOfNodes = failedTestcasesInHitSpectraMatrix.GetLength(0);
             int[] tmpClusterClassification;
             int[] prevClusterClassification =
-                Tools.buildOneDimensionalIntArray(matlabClustering.buildNCluster(new MWNumericArray(binaryClusterTree), new MWNumericArray(1), new MWCharArray(clustering_method)));
-            Dictionary<int, List<int[]>> prevListOfClusters = Tools.allocateTestcasesIntoClusters(Tools.buildOneDimensionalIntArray(matlabClustering.buildNCluster(new MWNumericArray(binaryClusterTree), new MWNumericArray(1), new MWCharArray(clustering_method))), failedTestcasesInHitSpectraMatrix);
+                Tools.BuildOneDimensionalIntArray(matlabClustering.buildNCluster(new MWNumericArray(binaryClusterTree), new MWNumericArray(1), new MWCharArray(clustering_method)));
+            Dictionary<int, List<int[]>> prevListOfClusters = Tools.AllocateTestcasesIntoClusters(Tools.BuildOneDimensionalIntArray(matlabClustering.buildNCluster(new MWNumericArray(binaryClusterTree), new MWNumericArray(1), new MWCharArray(clustering_method))), failedTestcasesInHitSpectraMatrix);
 
             while (numberOfNodes < maxNumberOfNodes)
             {
                 
 
                 MWArray tmpSolution = matlabClustering.buildNCluster(new MWNumericArray(binaryClusterTree), new MWNumericArray(numberOfNodes), new MWCharArray(clustering_method));
-                tmpClusterClassification = Tools.buildOneDimensionalIntArray(tmpSolution);
+                tmpClusterClassification = Tools.BuildOneDimensionalIntArray(tmpSolution);
                 //MWArray tmpCenter = matlabClustering.findClusterCenter(new MWNumericArray(binaryClusterTree), 0.6);
-                Dictionary<int, List<int[]>> tmpListOfClusters = Tools.allocateTestcasesIntoClusters(tmpClusterClassification, failedTestcasesInHitSpectraMatrix);
+                Dictionary<int, List<int[]>> tmpListOfClusters = Tools.AllocateTestcasesIntoClusters(tmpClusterClassification, failedTestcasesInHitSpectraMatrix);
 
-                int[,] firstCluster = Tools.transformJaggedArrayToTwoDimensionalArray(tmpListOfClusters[1].ToArray());
-                firstCluster = Tools.mergeTwoTwoDimensionalIntArrays(firstCluster, passedTestcasesInHitSpectraMatrix);
-                int[,] secondCluster = Tools.transformJaggedArrayToTwoDimensionalArray(tmpListOfClusters[2].ToArray());
-                secondCluster = Tools.mergeTwoTwoDimensionalIntArrays(secondCluster, passedTestcasesInHitSpectraMatrix);
+                int[,] firstCluster = Tools.TransformJaggedArrayToTwoDimensionalArray(tmpListOfClusters[1].ToArray());
+                firstCluster = Tools.MergeTwoTwoDimensionalIntArrays(firstCluster, passedTestcasesInHitSpectraMatrix);
+                int[,] secondCluster = Tools.TransformJaggedArrayToTwoDimensionalArray(tmpListOfClusters[2].ToArray());
+                secondCluster = Tools.MergeTwoTwoDimensionalIntArrays(secondCluster, passedTestcasesInHitSpectraMatrix);
 
-                List<Item> suspiciousnessList1 = new FaultLocalizer(firstCluster, Tools.generateFunctionNamesArray(hitSpectraMatrix), faultLocalizationStrategy).CalculateSuspiciousnessRanking();
-                List<Item> suspiciousnessList2 = new FaultLocalizer(secondCluster, Tools.generateFunctionNamesArray(hitSpectraMatrix), faultLocalizationStrategy).CalculateSuspiciousnessRanking();
+                List<Item> suspiciousnessList1 = new FaultLocalizer(firstCluster, Tools.GenerateFunctionNamesArray(hitSpectraMatrix), faultLocalizationStrategy).CalculateSuspiciousnessRanking();
+                List<Item> suspiciousnessList2 = new FaultLocalizer(secondCluster, Tools.GenerateFunctionNamesArray(hitSpectraMatrix), faultLocalizationStrategy).CalculateSuspiciousnessRanking();
 
                 Comparator comparator = new Comparator(ComparingStrategy.JaccardTwoSets, comparisonRange);
                 double similarity = comparator.compare(suspiciousnessList1, suspiciousnessList2);
@@ -484,20 +484,20 @@ namespace Aletheia.Clustering
 
         private void buildHitSpectraMatrixArray()
         {
-            hitSpectraMatrixArray = Tools.buildTwoDimensionalIntArray(hitSpectraMatrix);
-            idList = Tools.buildIdList(hitSpectraMatrix);
+            hitSpectraMatrixArray = Tools.BuildTwoDimensionalIntArray(hitSpectraMatrix);
+            idList = Tools.BuildIdList(hitSpectraMatrix);
         }
 
         private void buildFailedTestcasesInHitSpectraMatrixArray()
         {
-            failedTestcasesInHitSpectraMatrix = Tools.seperateTestcasesByResultTwoDimensionalIntArray(Result.Failed, hitSpectraMatrixArray);
-            idListFailed = Tools.buildIdListSeperated(Result.Failed, hitSpectraMatrix);
+            failedTestcasesInHitSpectraMatrix = Tools.SeperateTestcasesByResultTwoDimensionalIntArray(Result.Failed, hitSpectraMatrixArray);
+            idListFailed = Tools.BuildIdListSeperated(Result.Failed, hitSpectraMatrix);
         }
 
         private void buildPassedTestcasesInHitSpectraMatrixArray()
         {
-            passedTestcasesInHitSpectraMatrix = Tools.seperateTestcasesByResultTwoDimensionalIntArray(Result.Passed, hitSpectraMatrixArray);
-            idListPassed = Tools.buildIdListSeperated(Result.Passed, hitSpectraMatrix);
+            passedTestcasesInHitSpectraMatrix = Tools.SeperateTestcasesByResultTwoDimensionalIntArray(Result.Passed, hitSpectraMatrixArray);
+            idListPassed = Tools.BuildIdListSeperated(Result.Passed, hitSpectraMatrix);
         }
 
         private void buildSuspiciousnessRankingForCluster()
@@ -507,10 +507,10 @@ namespace Aletheia.Clustering
             {
                 List<int[]> tmpList = listOfClusters[key];
                 int[][] ar = tmpList.ToArray();
-                int[,] tr = Tools.transformJaggedArrayToTwoDimensionalArray(ar);
-                int[,] mergedList = Tools.mergeTwoTwoDimensionalIntArrays(tr, passedTestcasesInHitSpectraMatrix);
+                int[,] tr = Tools.TransformJaggedArrayToTwoDimensionalArray(ar);
+                int[,] mergedList = Tools.MergeTwoTwoDimensionalIntArrays(tr, passedTestcasesInHitSpectraMatrix);
 
-                List<Item> suspiciousnessList = new FaultLocalizer(mergedList, Tools.generateFunctionNamesArray(hitSpectraMatrix), faultLocalizationStrategy).CalculateSuspiciousnessRanking();
+                List<Item> suspiciousnessList = new FaultLocalizer(mergedList, Tools.GenerateFunctionNamesArray(hitSpectraMatrix), faultLocalizationStrategy).CalculateSuspiciousnessRanking();
                 suspiciousnessListForEveryCluster.Add(key, suspiciousnessList);
             }
         }

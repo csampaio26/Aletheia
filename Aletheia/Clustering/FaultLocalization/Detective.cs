@@ -30,9 +30,9 @@ namespace Aletheia.Clustering.FaultLocalization
         } 
         public void DetectFault()
         {
-            hitSpectraMatrixArray = Tools.buildTwoDimensionalIntArray(hitSpectraData);
-            idList = Tools.buildIdList(hitSpectraData);
-            suspiciousnessList = new FaultLocalizer(hitSpectraMatrixArray, Tools.generateFunctionNamesArray(hitSpectraData), strategy).CalculateSuspiciousnessRanking();
+            hitSpectraMatrixArray = Tools.BuildTwoDimensionalIntArray(hitSpectraData);
+            idList = Tools.BuildIdList(hitSpectraData);
+            suspiciousnessList = new FaultLocalizer(hitSpectraMatrixArray, Tools.GenerateFunctionNamesArray(hitSpectraData), strategy).CalculateSuspiciousnessRanking();
             exportSuspiciousnessRanking();
         }
         private void exportSuspiciousnessRanking()

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 using System.Threading;
 using Aletheia.HitSpectra.persistence.cobertura;
@@ -11,13 +9,10 @@ namespace Aletheia.HitSpectra.persistence
 {
     public class SourceFile
     {
-        private Dictionary<int, string> linesOfSourceFile;
-        private Dictionary<int, Block> functions;
-
-        private SemaphoreSlim _Semaphore;
-        private static SemaphoreSlim _Semaphore2 = new SemaphoreSlim(1);
-
-        private string pathOfSoureFile;
+        private readonly Dictionary<int, string> linesOfSourceFile;
+        private readonly Dictionary<int, Block> functions;
+        private readonly SemaphoreSlim _Semaphore;
+        private readonly string pathOfSoureFile;
 
         public SourceFile(String baseFilePath)
         {
@@ -27,7 +22,7 @@ namespace Aletheia.HitSpectra.persistence
             this.pathOfSoureFile = baseFilePath;
 
             //Read the content of the base-sourcefile and remove the comments. All lines are stored in Dictionary linesOfSourceFile
-            readSourceFileAndRemoveComments();
+            ReadSourceFileAndRemoveComments();
         }
 
         public Dictionary<Block, bool> BuildFctSpectraFromTrace(Class executionTrace)
@@ -77,7 +72,7 @@ namespace Aletheia.HitSpectra.persistence
             return this.linesOfSourceFile[lineNumber];
         }
 
-        private void readSourceFileAndRemoveComments()
+        private void ReadSourceFileAndRemoveComments()
         {
             //Read the content of the base-sourcefile
             using (StreamReader streamReader = new StreamReader(this.pathOfSoureFile))
@@ -162,17 +157,16 @@ namespace Aletheia.HitSpectra.persistence
 
 
             // string name = parseFunctionName(line.number);
-            string name = parseFunctionName(line.number);
+            string name = ParseFunctionName(line.number);
 
             if (name == null || name.Equals("")) name = "Fct" + (fctSpectra.Count + 1);
 
             return new Block(name, executionTrace.FileName, line.number, fLoC);
         }
 
-        private string parseFunctionName(int linenumber)
+        private string ParseFunctionName(int linenumber)
         {
             bool closingCurlyBracket = false;
-            bool openingCurlyBracket = false;
             bool singleQuotationMark = false;
             bool doubleQuotationMark = false;
 
@@ -268,8 +262,6 @@ namespace Aletheia.HitSpectra.persistence
 
             if (index >= 0)
             {
-                char test = sourceCode[index];
-
                 while ((index >= 0 && (Char.IsLetterOrDigit(sourceCode[index]) || sourceCode[index] == '_') && !Char.IsWhiteSpace(sourceCode[index])) || (spaceInBetween && index >= 0))
                 {
                     spaceInBetween = false;
@@ -287,7 +279,7 @@ namespace Aletheia.HitSpectra.persistence
             }
         }
 
-        private bool leaveOutTestFunction(string name)
+        private bool LeaveOutTestFunction(string name)
         {
             if (name.Equals("TEST_F"))
             {

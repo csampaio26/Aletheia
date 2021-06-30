@@ -47,8 +47,6 @@ C:\Users\CarlaSampaio\Desktop\Aletheia\Aletheia\obj\x64\Debug\Aletheia.pdb
 C:\Users\carla\Desktop\Aletheia\Aletheia\bin\x64\Debug\Aletheia.exe.config
 C:\Users\carla\Desktop\Aletheia\Aletheia\bin\x64\Debug\Aletheia.exe
 C:\Users\carla\Desktop\Aletheia\Aletheia\bin\x64\Debug\Aletheia.pdb
-C:\Users\carla\Desktop\Aletheia\Aletheia\bin\x64\Debug\MWArray.xml
-C:\Users\carla\Desktop\Aletheia\Aletheia\obj\x64\Debug\Aletheia.csprojAssemblyReference.cache
 C:\Users\carla\Desktop\Aletheia\Aletheia\obj\x64\Debug\Aletheia.csproj.CoreCompileInputs.cache
 C:\Users\carla\Desktop\Aletheia\Aletheia\obj\x64\Debug\Aletheia.csproj.CopyComplete
 C:\Users\carla\Desktop\Aletheia\Aletheia\obj\x64\Debug\Aletheia.exe

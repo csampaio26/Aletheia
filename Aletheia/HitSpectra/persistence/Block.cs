@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace Aletheia.HitSpectra.persistence
 {
@@ -11,14 +9,13 @@ namespace Aletheia.HitSpectra.persistence
     {
         public static string keyWords = "alignas|alignof|asm|auto|bool|break|case|catch|char|char16_t|char32_t|class|const|constexpr|const_cast|continue|decltype|default|delete|do|double|dynamic_cast|else|enum|explicit|export|extern|false|float|for|friend|goto|if|inline|int|long|mutable|namespace|new|noexcept|nullptr|operator|private|protected|public|register|reinterpret_cast|return|short|signed|sizeof|static|static_assert|static_cast|struct|switch|template|this|thread_local|throw|true|try|typedef|typeid|typename|union|unsigned|using|virtual|void|volatile|wchar_t|while";
 
-        private Dictionary<int, string> lines;
-        private string name;
-        private string sourceFileTheBlockBelongsTo;
-        private string typeOfSourceFile = "";
-        private int lineOfDefinition;    // eigt. irgendwie unnoetig, aber ich modelliere es vorerst mal so
-        private Dictionary<int, List<InvokedFunction>> listOfBlocksInLine; // key is a line number, behind all these linenumbers in this Dictionary is the invokation of a function
-        private static SemaphoreSlim semaphorExport = new SemaphoreSlim(1);
-
+        private readonly Dictionary<int, string> lines;
+        private readonly string name;
+        private readonly string sourceFileTheBlockBelongsTo;
+        private readonly string typeOfSourceFile = "";
+        private readonly int lineOfDefinition;    // eigt. irgendwie unnoetig, aber ich modelliere es vorerst mal so
+        private readonly Dictionary<int, List<InvokedFunction>> listOfBlocksInLine; // key is a line number, behind all these linenumbers in this Dictionary is the invokation of a function
+       
         public Block(string name, string sourceFile, int lineOfDefinition, Dictionary<int, string> linesOfCode)
         {
             this.lines = linesOfCode;
@@ -47,7 +44,7 @@ namespace Aletheia.HitSpectra.persistence
             this.listOfBlocksInLine = new Dictionary<int, List<InvokedFunction>>();
             foreach (int linenumber in lines.Keys)
             {
-                parseLine(lines[linenumber], linenumber);
+                ParseLine(lines[linenumber], linenumber);
             }
         }
 
@@ -76,7 +73,7 @@ namespace Aletheia.HitSpectra.persistence
             get { return this.sourceFileTheBlockBelongsTo + this.typeOfSourceFile + "_" + this.name + "_" + this.lineOfDefinition; }
         }
 
-        public bool containsLineAndIsBlockInvokation(int linenumber)
+        public bool ContainsLineAndIsBlockInvokation(int linenumber)
         {
             if (listOfBlocksInLine.ContainsKey(linenumber))
             {
@@ -86,12 +83,12 @@ namespace Aletheia.HitSpectra.persistence
             return false;
         }
 
-        public List<InvokedFunction> getListOfInvokedFuncsInLine(int line)
+        public List<InvokedFunction> GetListOfInvokedFuncsInLine(int line)
         {
             return listOfBlocksInLine[line];
         }
 
-        private void parseLine(string line, int linenumber)
+        private void ParseLine(string line, int linenumber)
         {
             int lastIndexOfLeftParenthesis = 0;
             int indexOfLeftParenthesisPosition = 0;
@@ -106,7 +103,7 @@ namespace Aletheia.HitSpectra.persistence
                     indexOfLeftParenthesisPosition = tmpIndex;
 
                     // new parseFunctionName with SourceFile if available
-                    string[] block = parseBlockName(line.Substring(lastIndexOfLeftParenthesis, (indexOfLeftParenthesisPosition - lastIndexOfLeftParenthesis)));
+                    string[] block = ParseBlockName(line.Substring(lastIndexOfLeftParenthesis, (indexOfLeftParenthesisPosition - lastIndexOfLeftParenthesis)));
 
                     string func; string srcFile; string word;
 
@@ -132,7 +129,7 @@ namespace Aletheia.HitSpectra.persistence
                     lastIndexOfLeftParenthesis = indexOfLeftParenthesisPosition;
                     if (!keyWords.Contains(word.ToLower()))
                     {
-                        List<string> parameters = parseBlockParameters(line, indexOfLeftParenthesisPosition);
+                        List<string> parameters = ParseBlockParameters(line, indexOfLeftParenthesisPosition);
                         blockNames.Add(new InvokedFunction(func, srcFile, parameters));
                     }
                 }
@@ -144,14 +141,13 @@ namespace Aletheia.HitSpectra.persistence
             return;
         }
 
-        private string[] parseBlockName(string text)
+        private string[] ParseBlockName(string text)
         {
             text = text.Trim();
             int endIndex = text.Length - 1;
             int index = endIndex;
-            string word = "";
             string[] block;
-
+            string word;
             while (index >= 0)
             {
                 if (!(Char.IsLetterOrDigit(text, index) || text[index] == '_' || text[index] == ':' /*|| text[index] == '.' */))
@@ -201,7 +197,7 @@ namespace Aletheia.HitSpectra.persistence
             return block;
         }
 
-        private List<string> parseBlockParameters(string text, int position)
+        private List<string> ParseBlockParameters(string text, int position)
         {
             List<string> parameters = new List<string>();
 

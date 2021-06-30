@@ -1,9 +1,6 @@
 ﻿using Aletheia.HitSpectra.persistence;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Aletheia.HitSpectra
 {
@@ -12,9 +9,9 @@ namespace Aletheia.HitSpectra
     /// </summary>
     public class InvokedFunction
     {
-        private string name;
-        private string sourceFileTheFunctionBelongsTo;
-        private List<string> parameters;
+        private readonly string name;
+        private readonly string sourceFileTheFunctionBelongsTo;
+        private readonly List<string> parameters;
         /// <summary>
         /// constructor sets some member variable
         /// </summary>
@@ -51,7 +48,7 @@ namespace Aletheia.HitSpectra
             get { return sourceFileTheFunctionBelongsTo; }
         }
 
-        public bool compareFunctionInvokationToFunction(Block function)
+        public bool CompareFunctionInvokationToFunction(Block function)
         {
             string fctName = function.Name;
             string fctSourceFile = function.SourceFileName;

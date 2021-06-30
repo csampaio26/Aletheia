@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 
 namespace Aletheia.HitSpectra.persistence
@@ -14,7 +11,7 @@ namespace Aletheia.HitSpectra.persistence
         private string _Name;
         private string _Directory;
         private Dictionary<string, List<string>> _TestSet;
-        SemaphoreSlim _TestSetSemaphore;
+        readonly SemaphoreSlim _TestSetSemaphore;
         private HashSet<string> _TestSetSimplified;
         private string Executable;
 
@@ -40,27 +37,27 @@ namespace Aletheia.HitSpectra.persistence
             //Create a semaphore for parallel test-execution
             this._TestSetSemaphore = new SemaphoreSlim(1);
         }
-        public void setExecutable(string exec)
+        public void SetExecutable(string exec)
         {
             this.Executable = exec;
         }
-        public string getExecutable()
+        public string GetExecutable()
         {
             return this.Executable;
         }
-        public void setName(string proj)
+        public void SetName(string proj)
         {
             this._Name = proj;
         }
-        public void setDirectory(string dir)
+        public void SetDirectory(string dir)
         {
             this._Directory = dir;
         }
-        public void setTestSet(Dictionary<string, List<string>> set)
+        public void SetTestSet(Dictionary<string, List<string>> set)
         {
             this._TestSet = set;
         }
-        public void setTestSetSimplified(HashSet<string> set)
+        public void SetTestSetSimplified(HashSet<string> set)
         {
             this._TestSetSimplified = set;
         }
@@ -148,7 +145,7 @@ namespace Aletheia.HitSpectra.persistence
                 return result;
             }
         }
-        public void limitTestCase()
+        public void LimitTestCase()
         {
             this._TestSetSemaphore.Wait();
             while (this._TestSet.Count > 3)
@@ -161,12 +158,9 @@ namespace Aletheia.HitSpectra.persistence
         {
             get
             {
-                int result = 0;
-
                 this._TestSetSemaphore.Wait();
 
-                result = this._TestSet.Count;
-
+                int result = _TestSet.Count;
                 this._TestSetSemaphore.Release();
 
                 return result;
@@ -233,7 +227,7 @@ namespace Aletheia.HitSpectra.persistence
             }
             return tests;
         }
-        private static bool validateLineForTest(string lineOfCode)
+        private static bool ValidateLineForTest(string lineOfCode)
         {
             if (!lineOfCode.StartsWith("#"))
             {
@@ -274,7 +268,7 @@ namespace Aletheia.HitSpectra.persistence
                 {
 
                     //if (lineOfCode.ToLower().StartsWith("test"))
-                    if(validateLineForTest(lineOfCode))
+                    if(ValidateLineForTest(lineOfCode))
                     {
 
                         string testCase = lineOfCode.Split('(')[1].Split(',')[0];
