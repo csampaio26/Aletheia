@@ -43,4 +43,4 @@ Sample command to do exam score:
 
 Different ranking metrics can be used for fault localization, Our tool allows the following ranking metrics: 
 Dstar1, Dstar2, Dstar3, Dstar4, Jaccard, Tarantula, Ochiai, Rojers Tanimoto and Sokal Sneath.
-If you do not choose any ranking metric, Jaccard will be used as the default. 
+If you do not choose any ranking metric, all the ranking metrics will be used. 
