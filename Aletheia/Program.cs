@@ -55,16 +55,16 @@ namespace Aletheia
 
             if (!commandLineArguments.Keys.Contains(PossibleCommandLineArguments.OPERATION)) throw new Exception("Please select a operation: GenerateHitSpectra/Cluster/FaultLocalization!");
             operation = commandLineArguments[PossibleCommandLineArguments.OPERATION].Value;
-            // Check, which mode is selected
-            //if (!commandLineArguments.Keys.Contains(PossibleCommandLineArguments.MODE)) throw new Exception("Please select a operation mode!");
-            //mode = commandLineArguments[PossibleCommandLineArguments.MODE].Value;
-
-            string outputDirectory = "";
 
             //check debug value
             if (commandLineArguments.Keys.Contains(PossibleCommandLineArguments.DEBUG))
                 DEBUG = Convert.ToBoolean(commandLineArguments[PossibleCommandLineArguments.DEBUG].Value);
 
+            // Check, which mode is selected
+            //if (!commandLineArguments.Keys.Contains(PossibleCommandLineArguments.MODE)) throw new Exception("Please select a operation mode!");
+            //mode = commandLineArguments[PossibleCommandLineArguments.MODE].Value;
+
+            string outputDirectory;
             // Check, if output directory is available
             if (!commandLineArguments.Keys.Contains(PossibleCommandLineArguments.OUTPUT_DIRECTORY))
                 outputDirectory = "C:\\HitSpectras";
@@ -200,8 +200,8 @@ namespace Aletheia
             }
             else if (operation.Equals("getHelp", StringComparison.OrdinalIgnoreCase))
             {
-                String output = "These are accepted command parameters\nCommand should be given in key=value fashion\n\n";
-                output += "do: specifies the operation to be performed\n\tPossible values={'GenerateHitSpectra', 'Cluster', 'FaultLocalization', 'GetHelp'}\n";
+                string output = "These are accepted command parameters\nCommand should be given in key=value fashion\n\n";
+                output += "do: specifies the operation to be performed\n\tPossible values={'GenerateHitSpectra', 'Cluster', 'FaultLocalization','EXAMScore', 'GetHelp'}\n";
                 output += "separator: specifies the separator character for csv file\nBy default white space is the separator\n";
                 output += "output_directory: where the output will be generated, default output directory is C:\\HitSpectras\n";
                 output += "project_path: it is a mandatory argument for HitSpectra Generation part, show the *.vcxproj file\n";
